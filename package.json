@@ -12,6 +12,15 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^7.4.2"
+    "@astrojs/markdown-satteri": "^0.4.5",
+    "@astrojs/mdx": "^8.1.1",
+    "@astrojs/sitemap": "^3.7.4",
+    "@astrojs/vue": "^7.1.2",
+    "@iconify-json/lucide": "^1.2.147",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.4.2",
+    "astro-icon": "^1.2.0",
+    "tailwindcss": "^4.3.3",
+    "vue": "^3.5.44"
   }
 }
