@@ -18,10 +18,12 @@
 
 @theme {
 	--font-rubik: "Rubik", sans-serif;
-	--color-background: #000;
-	--color-foreground: #f5f5f5;
-	--color-muted: #858585;
-	--color-accent: #f04444;
+	--color-primary: #6366f1;
+	--color-accent: #22d3ee;
+	--color-background: #000000;
+	--color-surface: #111111;
+	--color-foreground: #ffffff;
+	--color-muted: #a3a3a3;
 }
 
 @layer base {
