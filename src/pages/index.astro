@@ -1,8 +1,17 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeroBanner from '../components/HeroBanner.vue';
+import Services from '../components/Services.vue';
+import AboutMe from '../components/AboutMe.vue';
+import Contact from '../components/Contact.vue';
+import ContactForm from '../components/ContactForm.vue';
 ---
 
 <BaseLayout title="Visit Card">
 	<HeroBanner />
+	<Services />
+	<AboutMe />
+	<Contact>
+		<ContactForm slot="form" client:only="vue" />
+	</Contact>
 </BaseLayout>

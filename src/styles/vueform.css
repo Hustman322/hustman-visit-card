@@ -1,0 +1,62 @@
+/*
+ * Vueform theme: base "vueform" theme (light only) + overrides mapped to the project tokens.
+ * Kept in the `components` layer so Tailwind utilities still win.
+ *
+ * Vueform defines its --vf-* variables on every element (`*, :before, :after, :root`),
+ * so the overrides target the form root *and* its descendants.
+ */
+@import "@vueform/vueform/dist/vueform.nodark.css" layer(components);
+
+@layer components {
+	.vf-theme-site,
+	.vf-theme-site *,
+	.vf-theme-site *::before,
+	.vf-theme-site *::after {
+		/* Brand */
+		--vf-primary: var(--color-accent);
+		--vf-primary-darker: color-mix(in srgb, var(--color-accent) 85%, #000);
+		--vf-color-on-primary: var(--color-background);
+		--vf-ring-color: color-mix(in srgb, var(--color-accent) 35%, transparent);
+		--vf-ring-width: 3px;
+		--vf-danger: #f87171;
+		--vf-danger-lighter: color-mix(in srgb, #f87171 12%, transparent);
+		--vf-color-danger: #f87171;
+
+		/* Inputs */
+		--vf-bg-input: var(--color-background);
+		--vf-bg-input-hover: var(--color-background);
+		--vf-bg-input-focus: var(--color-background);
+		--vf-bg-input-danger: var(--color-background);
+		--vf-bg-input-success: var(--color-background);
+		--vf-bg-selected: color-mix(in srgb, var(--color-foreground) 8%, transparent);
+		--vf-bg-passive: color-mix(in srgb, var(--color-foreground) 6%, transparent);
+		--vf-color-input: var(--color-foreground);
+		--vf-color-input-hover: var(--color-foreground);
+		--vf-color-input-focus: var(--color-foreground);
+		--vf-color-input-success: var(--color-foreground);
+		--vf-color-input-danger: var(--color-foreground);
+		--vf-color-placeholder: color-mix(in srgb, var(--color-muted) 80%, transparent);
+		--vf-color-passive: var(--color-muted);
+		--vf-color-muted: var(--color-muted);
+		--vf-border-color-input: color-mix(in srgb, var(--color-foreground) 12%, transparent);
+		--vf-border-color-input-hover: color-mix(in srgb, var(--color-foreground) 25%, transparent);
+		--vf-border-color-input-focus: color-mix(in srgb, var(--color-accent) 60%, transparent);
+		--vf-border-color-input-success: color-mix(in srgb, var(--color-foreground) 12%, transparent);
+		--vf-border-color-input-danger: #f87171;
+
+		/* Shape & size */
+		--vf-radius-input: 0.75rem;
+		--vf-min-height-input: 3rem;
+		--vf-py-input: 0.75rem;
+		--vf-px-input: 1rem;
+		--vf-font-size: 0.9375rem;
+		--vf-gutter: 1rem;
+
+		font-family: var(--font-rubik);
+	}
+
+	/* Native <select> popup, autofill and scrollbars follow the dark design */
+	.vf-theme-site {
+		color-scheme: dark;
+	}
+}

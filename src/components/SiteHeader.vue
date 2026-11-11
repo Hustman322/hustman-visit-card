@@ -132,7 +132,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-	<header ref="headerRef" class="sticky top-0 z-50 isolate">
+	<header ref="headerRef" class="fixed inset-x-0 top-0 z-50 isolate">
 		<!-- Background layer: kept separate so backdrop-blur doesn't trap the fixed mobile panel -->
 		<div
 			class="absolute inset-0 -z-10 border-b transition-[background-color,border-color,backdrop-filter] duration-300 motion-reduce:transition-none"
@@ -149,7 +149,7 @@ onBeforeUnmount(() => {
 			:class="isScrolled ? 'py-3' : 'py-5'"
 		>
 			<a
-				class="relative z-50 rounded-sm text-xl font-medium tracking-tight text-inherit no-underline focus-visible:outline-2 focus-visible:outline-offset-4"
+				class="relative z-50 rounded-sm text-[1.625rem] font-medium tracking-tight text-inherit no-underline focus-visible:outline-2 focus-visible:outline-offset-4"
 				href="/"
 				aria-label="HustWeb home"
 				@click="closeMenu()"
@@ -169,7 +169,7 @@ onBeforeUnmount(() => {
 					<li v-for="item in navItems" :key="item.href">
 						<a
 							:ref="(el) => setLinkRef(item.href, el)"
-							class="relative block rounded-full px-4 py-2 text-sm transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 motion-reduce:transition-none"
+							class="relative block rounded-full px-4 py-2 text-lg transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 motion-reduce:transition-none"
 							:class="activeHref === item.href ? 'text-foreground' : 'text-foreground/70 hover:text-foreground'"
 							:href="item.href"
 							:aria-current="activeHref === item.href ? 'location' : undefined"
@@ -184,7 +184,7 @@ onBeforeUnmount(() => {
 
 				<a
 					v-if="ctaItem"
-					class="rounded-full bg-foreground px-5 py-2 text-sm font-medium text-background transition-[background-color,transform] duration-200 hover:bg-accent active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-3 motion-reduce:transition-none"
+					class="rounded-full bg-foreground px-5 py-2 text-lg font-medium text-background transition-[background-color,transform] duration-200 hover:bg-accent active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-3 motion-reduce:transition-none"
 					:href="ctaItem.href"
 					:aria-current="activeHref === ctaItem.href ? 'location' : undefined"
 				>
@@ -195,14 +195,13 @@ onBeforeUnmount(() => {
 			<!-- Mobile toggle -->
 			<button
 				ref="toggleRef"
-				class="relative z-50 inline-flex cursor-pointer items-center gap-3 rounded-full border border-foreground/15 bg-background/60 py-2 pr-3 pl-4 text-inherit backdrop-blur-sm transition-colors duration-200 hover:border-foreground/40 focus-visible:outline-2 focus-visible:outline-offset-3 md:hidden"
+				class="relative z-50 inline-flex size-11 cursor-pointer items-center justify-center rounded-full border border-foreground/15 bg-background/60 text-inherit backdrop-blur-sm transition-colors duration-200 hover:border-foreground/40 focus-visible:outline-2 focus-visible:outline-offset-3 md:hidden"
 				type="button"
 				:aria-expanded="isMenuOpen"
+				:aria-label="isMenuOpen ? 'Close menu' : 'Open menu'"
 				aria-controls="mobile-navigation"
 				@click="isMenuOpen = !isMenuOpen"
 			>
-				<span class="text-sm font-medium">{{ isMenuOpen ? 'Close' : 'Menu' }}</span>
-				<span class="sr-only">navigation</span>
 				<span class="relative h-3.5 w-5" aria-hidden="true">
 					<span
 						class="absolute top-0 left-0 h-0.5 w-full rounded-full bg-current"
@@ -235,7 +234,7 @@ onBeforeUnmount(() => {
 							class="border-b border-foreground/10"
 						>
 							<a
-								class="group flex items-baseline justify-between py-5 text-[clamp(2.25rem,10vw,3.25rem)] leading-none font-medium tracking-tight transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-4"
+								class="group flex items-baseline justify-between py-5 text-[clamp(2.8125rem,12.5vw,4.0625rem)] leading-none font-medium tracking-tight transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-4"
 								:class="activeHref === item.href ? 'text-accent' : 'text-foreground hover:text-accent'"
 								:href="item.href"
 								:aria-current="activeHref === item.href ? 'location' : undefined"
@@ -254,7 +253,7 @@ onBeforeUnmount(() => {
 
 				<a
 					v-if="ctaItem"
-					class="mt-10 block rounded-full bg-foreground py-4 text-center text-lg font-medium text-background transition-colors duration-200 hover:bg-accent active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-3"
+					class="mt-10 block rounded-full bg-foreground py-4 text-center text-2xl font-medium text-background transition-colors duration-200 hover:bg-accent active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-3"
 					:href="ctaItem.href"
 					@click="closeMenu()"
 				>
