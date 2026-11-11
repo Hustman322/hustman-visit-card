@@ -34,6 +34,40 @@ import TextareaElement from '@vueform/vueform/themes/vueform/templates/elements/
 import SelectElement from '@vueform/vueform/themes/vueform/templates/elements/SelectElement.vue';
 import ButtonElement from '@vueform/vueform/themes/vueform/templates/elements/ButtonElement.vue';
 
+/**
+ * Vueform always points `aria-labelledby`, `aria-describedby` and `aria-errormessage`
+ * at label/description/info/error ids, even when those elements aren't rendered
+ * (this form has no visible labels or descriptions) — a broken ARIA reference.
+ * This wraps a template's render so `aria` only keeps references whose target exists.
+ */
+type ElementTemplate = { render: (ctx: Record<PropertyKey, unknown>, ...rest: unknown[]) => unknown };
+
+function withExistingAriaRefs<T extends ElementTemplate>(template: T): T {
+	return {
+		...template,
+		render(this: unknown, ctx, ...rest) {
+			const proxied = new Proxy(ctx, {
+				get(target, key) {
+					const value = Reflect.get(target, key);
+					if (key !== 'aria') return value;
+
+					const aria = { ...(value as Record<string, unknown>) };
+					const describedBy = [
+						target.description ? target.descriptionId : null,
+						target.info ? target.infoId : null,
+					].filter(Boolean).join(' ');
+
+					aria['aria-labelledby'] = target.hasLabel ? aria['aria-labelledby'] : undefined;
+					aria['aria-describedby'] = describedBy || undefined;
+					aria['aria-errormessage'] = target.error ? aria['aria-errormessage'] : undefined;
+					return aria;
+				},
+			});
+			return template.render.call(this, proxied, ...rest);
+		},
+	};
+}
+
 const theme = {
 	templates: {
 		Vueform,
@@ -61,10 +95,10 @@ const theme = {
 		ElementText,
 		ElementAddon,
 		ElementAddonOptions,
-		TextElement,
-		TextareaElement,
-		SelectElement,
-		ButtonElement,
+		TextElement: withExistingAriaRefs(TextElement),
+		TextareaElement: withExistingAriaRefs(TextareaElement),
+		SelectElement: withExistingAriaRefs(SelectElement),
+		ButtonElement: withExistingAriaRefs(ButtonElement),
 	},
 	classes,
 	columns,

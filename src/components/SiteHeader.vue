@@ -199,7 +199,7 @@ onBeforeUnmount(() => {
 				type="button"
 				:aria-expanded="isMenuOpen"
 				:aria-label="isMenuOpen ? 'Close menu' : 'Open menu'"
-				aria-controls="mobile-navigation"
+				:aria-controls="isMenuOpen ? 'mobile-navigation' : undefined"
 				@click="isMenuOpen = !isMenuOpen"
 			>
 				<span class="relative h-3.5 w-5" aria-hidden="true">
