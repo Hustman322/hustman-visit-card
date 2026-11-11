@@ -1,16 +1,10 @@
 ---
 import '../styles/global.css';
 import SiteHeader from '../components/SiteHeader.vue';
+import SeoHead from '../components/SeoHead.astro';
+import { seo } from '../config/seo';
 
-interface Props {
-	title?: string;
-	description?: string;
-}
-
-const {
-	title = 'Visit Card',
-	description = 'A personal website for a web developer.',
-} = Astro.props;
+type Props = import('astro/types').ComponentProps<typeof SeoHead>;
 ---
 
 <!doctype html>
@@ -19,11 +13,11 @@ const {
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="theme-color" content="#07080f" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="theme-color" content={seo.themeColor} />
+		<meta name="color-scheme" content="dark" />
 		<meta name="generator" content={Astro.generator} />
-		<meta name="description" content={description} />
-		<title>{title}</title>
+		<SeoHead {...Astro.props} />
 	</head>
 	<body>
 		<SiteHeader client:load />

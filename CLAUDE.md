@@ -26,9 +26,12 @@ npm run build                # output in dist/
 
 ```text
 src/
-  layouts/BaseLayout.astro    # <html>, meta, imports global.css, renders SiteHeader
+  layouts/BaseLayout.astro    # <html>, base meta, imports global.css, renders SeoHead + SiteHeader
+  config/seo.ts               # site-wide SEO data: title, description, OG image, contact, services
   pages/index.astro           # the only page: composes the sections in order
+  pages/robots.txt.ts         # robots.txt pointing to the sitemap (built from `site`)
   components/
+    SeoHead.astro             # title, description, canonical, robots, Open Graph, Twitter, JSON-LD
     SiteHeader.vue            # fixed header (overlays sections), desktop nav + sliding pill, mobile fullscreen menu, scroll-spy (client:load)
     HeroBanner.vue            # hero: eyebrow, animated headline, CTA, avatar
     Services.vue              # 4 service rows (Web Dev, AI & Automation, API Integrations, Maintenance)
@@ -41,6 +44,7 @@ src/
   styles/global.css           # Tailwind import, @font-face, @theme tokens, keyframes, base styles
   styles/vueform.css          # Vueform base theme + --vf-* overrides mapped to project tokens
 vueform.config.ts             # Vueform config with a slim theme (only the templates the form uses)
+scripts/generate-og-image.mjs # `npm run og` → public/og-image.png (1200×630 social preview)
   assets/images/              # imported images (processed by Astro)
 public/
   fonts/Rubik/                # self-hosted fonts
@@ -54,6 +58,7 @@ public/
 - **About** (`#about-me`): "I build for your business, not just for the code." Journey steps, bio, principle cards.
 - **Contact** (`#contact`): info card (phone, email, hours, location) + "Need a consultation?" form (name, email, phone, service, message). Icons are placeholders. The form has no backend yet: `onSubmit` in `ContactForm.vue` just shows a success message.
 - New sections need a matching `id`, which the header scroll-spy uses.
+- SEO: the production URL is `site` in `astro.config.mjs` (currently the placeholder `https://example.com`). Canonical, OG URLs, sitemap and robots.txt all derive from it. Page-level overrides go through `BaseLayout` props (`title`, `description`, `image`, `noindex`).
 
 Copy lives as constants in each component's `<script setup>`, not in a CMS or content collection.
 

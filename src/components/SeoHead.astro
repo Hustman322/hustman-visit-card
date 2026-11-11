@@ -1,0 +1,91 @@
+---
+// <head> SEO tags: title, description, canonical, robots, Open Graph, Twitter card and JSON-LD.
+import { seo } from '../config/seo';
+
+interface Props {
+	/** Page title; wrapped in `seo.titleTemplate`. Omit on the home page to use `seo.title` as is. */
+	title?: string;
+	description?: string;
+	/** Absolute or root-relative image path. Defaults to `seo.ogImage`. */
+	image?: string;
+	imageAlt?: string;
+	noindex?: boolean;
+}
+
+const { title, description = seo.description, image, imageAlt, noindex = false } = Astro.props;
+
+const site = Astro.site ?? new URL(Astro.url.origin);
+const fullTitle = title ? seo.titleTemplate.replace('%s', title) : seo.title;
+const canonical = new URL(Astro.url.pathname, site).href;
+const imageUrl = new URL(image ?? seo.ogImage.path, site).href;
+const alt = imageAlt ?? seo.ogImage.alt;
+const usesDefaultImage = !image;
+
+const jsonLd = {
+	'@context': 'https://schema.org',
+	'@graph': [
+		{
+			'@type': 'WebSite',
+			'@id': `${site.href}#website`,
+			url: site.href,
+			name: seo.siteName,
+			description: seo.description,
+			inLanguage: 'en',
+		},
+		{
+			'@type': 'ProfessionalService',
+			'@id': `${site.href}#business`,
+			name: seo.siteName,
+			url: site.href,
+			description: seo.description,
+			image: new URL(seo.ogImage.path, site).href,
+			email: `mailto:${seo.contact.email}`,
+			telephone: seo.contact.telephone,
+			address: {
+				'@type': 'PostalAddress',
+				addressLocality: seo.contact.city,
+				addressCountry: seo.contact.country,
+			},
+			areaServed: 'Worldwide',
+			hasOfferCatalog: {
+				'@type': 'OfferCatalog',
+				name: 'Services',
+				itemListElement: seo.services.map((name) => ({
+					'@type': 'Offer',
+					itemOffered: { '@type': 'Service', name },
+				})),
+			},
+		},
+	],
+};
+---
+
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+<meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'} />
+<link rel="sitemap" href="/sitemap-index.xml" />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content={seo.siteName} />
+<meta property="og:locale" content={seo.locale} />
+<meta property="og:url" content={canonical} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={imageUrl} />
+<meta property="og:image:alt" content={alt} />
+{usesDefaultImage && (
+	<>
+		<meta property="og:image:type" content="image/png" />
+		<meta property="og:image:width" content={String(seo.ogImage.width)} />
+		<meta property="og:image:height" content={String(seo.ogImage.height)} />
+	</>
+)}
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageUrl} />
+<meta name="twitter:image:alt" content={alt} />
+
+<script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
