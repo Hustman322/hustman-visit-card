@@ -1,0 +1,12 @@
+// Cloudflare Workers config: static assets only (no Worker script, no Astro adapter).
+// `npm run build` writes the site to dist/, `npx wrangler deploy` uploads it.
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "hustweb",
+	"compatibility_date": "2026-11-01",
+	"assets": {
+		"directory": "./dist",
+		"html_handling": "auto-trailing-slash",
+		"not_found_handling": "none"
+	}
+}
