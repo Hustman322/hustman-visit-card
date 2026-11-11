@@ -32,7 +32,7 @@ const services = [
 
 <template>
 	<section id="services" aria-labelledby="services-title" class="flex min-h-dvh items-center bg-background">
-		<div class="mx-auto w-full max-w-7xl px-[clamp(1.25rem,5vw,3rem)] py-[clamp(6rem,12vh,8rem)]">
+		<div class="mx-auto w-full max-w-7xl px-[clamp(1.25rem,5vw,3rem)] pt-[clamp(6rem,12vh,8rem)] pb-8 md:pb-[clamp(6rem,12vh,8rem)]">
 			<SectionEyebrow :text="eyebrow" />
 			<h2 id="services-title"
 				class="mb-12 max-w-xl text-[clamp(2rem,4vw,3.5rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-balance text-foreground md:mb-16">

@@ -1,8 +1,5 @@
 <script setup lang="ts">
-// Client-only island (`client:only="vue"`): Vueform's theme can't render on the server.
-// Vueform is registered on this island's own Vue app, so other islands don't ship it.
 import { getCurrentInstance, ref } from 'vue';
-// Named VueformPlugin: in <script setup> an import called `Vueform` would shadow the <Vueform> component
 import VueformPlugin from '@vueform/vueform';
 import vueformConfig from '../../vueform.config';
 
@@ -18,7 +15,6 @@ const serviceOptions = [
 
 const submitted = ref(false);
 
-// TODO: no backend yet. Send `form$.data` to a form service or API here.
 function onSubmit(form$: { data: Record<string, unknown>; reset: () => void }) {
 	console.info('Contact form submitted', form$.data);
 	submitted.value = true;
@@ -46,7 +42,7 @@ function onSubmit(form$: { data: Record<string, unknown>; reset: () => void }) {
 				:messages="{ required: 'Please tell me a bit about your project.', min: 'A few more words, please (10+ characters).' }"
 				:attrs="{ 'aria-label': 'Message' }" />
 			<ButtonElement name="submit" submits :button-class="[
-				'inline-flex items-center gap-2.5 rounded-full border-0 px-6 py-3 text-sm font-medium',
+				'inline-flex items-center rounded-full border-0 px-6 py-3 text-sm font-medium',
 				'bg-foreground text-background',
 				'transition-[box-shadow,translate] duration-300 ease-out-expo hover:-translate-y-0.5',
 				'hover:shadow-[0_0_0_1px_color-mix(in_srgb,var(--color-accent)_60%,transparent),0_10px_40px_-8px_color-mix(in_srgb,var(--color-primary)_70%,transparent)]',
@@ -54,8 +50,6 @@ function onSubmit(form$: { data: Record<string, unknown>; reset: () => void }) {
 				'motion-reduce:transition-none',
 			]">
 				Send message
-				<!-- Icon placeholder: icon to be chosen later -->
-				<span aria-hidden="true" class="size-5 rounded-full bg-background/15"></span>
 			</ButtonElement>
 		</Vueform>
 

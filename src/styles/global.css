@@ -25,6 +25,11 @@
 	--color-surface: #0e1020;
 	--color-foreground: #ffffff;
 	--color-muted: #9aa0b4;
+	/* Lighter tones of the brand colors, used by the multi-tone icons */
+	--color-primary-soft: color-mix(in srgb, var(--color-primary) 80%, white);
+	--color-primary-light: color-mix(in srgb, var(--color-primary) 55%, white);
+	--color-accent-soft: color-mix(in srgb, var(--color-accent) 70%, white);
+	--color-accent-light: color-mix(in srgb, var(--color-accent) 45%, white);
 
 	/* Hero animation */
 	--ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
