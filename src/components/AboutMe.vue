@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import SectionEyebrow from './ui/SectionEyebrow.vue';
+import DownloadIcon from './ui/icons/DownloadIcon.vue';
 import photo from '../assets/images/myself.png';
 
 const eyebrow = 'ABOUT ME';
@@ -11,6 +12,10 @@ const bio = [
 	"I'm a web developer who builds websites, web applications, and integrations for businesses, and stays involved after launch to keep them running and improving.",
 	'I care about what the work does for you: fewer manual tasks, systems that talk to each other, and a platform you can rely on long after launch.',
 ];
+
+const cvLabel = 'Download my CV';
+const cvHref = '/cv.pdf';
+const cvFileName = 'HustWeb-CV.pdf';
 
 const principles = [
 	{
@@ -63,6 +68,18 @@ const pad = (n: number) => String(n).padStart(2, '0');
 						{{ paragraph }}
 					</p>
 				</div>
+
+				<a :href="cvHref" :download="cvFileName"
+					class="group mt-8 inline-flex items-center gap-2.5 rounded-full border border-foreground/15 px-5 py-3
+						text-sm font-medium text-foreground
+						transition-[border-color,background-color,translate] duration-300 ease-out-expo
+						hover:-translate-y-0.5 hover:border-accent/50 hover:bg-foreground/5
+						focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent
+						motion-reduce:transition-none">
+					<span>{{ cvLabel }}</span>
+					<DownloadIcon class="size-4 flex-none text-accent" />
+					<span class="sr-only">(PDF)</span>
+				</a>
 
 				<ul class="mt-12 grid gap-4 sm:grid-cols-3">
 					<li v-for="(item, i) in principles" :key="item.title"
